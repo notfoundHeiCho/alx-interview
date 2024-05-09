@@ -4,21 +4,21 @@
 
 
 def minOperations(n):
-    if n == 1:
+    """
+    Calculates the fewest number of operations needed to result
+    in exactly n H characters in the file
+    """
+    if n <= 1:
         return 0
-    # Start with one 'H' character in the file
-    operations = [0, 0]
 
-    for i in range(2, n + 1):
-        operations.append(float('inf'))
+    operations = 0
+    divisor = 2
 
-        for j in range(1, i // 2 + 1):
-            if i % j == 0:
-                operations[i] = min(operations[i], operations[j] + i // j)
+    while n > 1:
+        if n % divisor == 0:
+            operations += divisor
+            n //= divisor
+        else:
+            divisor += 1
 
-    return operations[n]
-
-
-# Test the function
-n = 9
-print(minOperations(n))
+    return operations
